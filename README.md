@@ -11,7 +11,7 @@
 
 ### 🌍 Canlı Demo
 Aracı hiçbir şey indirmeden hemen kullanmaya başlamak için:
-**[👉 CipherForge'u Başlatmak İçin Tıklayın](https://gorkem-pre.github.io/Zero-Day-PassWEB/)** *(Linkinizi buraya ekleyin)*
+**[👉 Zero day pass'i Başlatmak İçin Tıklayın](https://gorkem-pre.github.io/Zero-Day-PassWEB/)
 
 
 ## 🇬🇧 English
@@ -26,6 +26,6 @@ Aracı hiçbir şey indirmeden hemen kullanmaya başlamak için:
 
 ### 🌍 Live Demo
 Access the tool instantly from any device:
-**[👉 Click Here to Launch CipherForge](https://gorkem-pre.github.io/Zero-Day-PassWEB/)** *(Linkinizi buraya ekleyin)*
+**[👉 Click Here to Launch Zero day pass](https://gorkem-pre.github.io/Zero-Day-PassWEB/)**
 
 ---

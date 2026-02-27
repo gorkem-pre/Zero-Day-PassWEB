@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siber Güvenlik Şifre Kontrol Paneli</title>
+    <style>
+          body {
+            background-color: #0a0a0a;
+            color: #00ff00; /* Matrix Yeşili */
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: #111;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ff00;
+            border-bottom: 1px dashed #00ff00;
+            padding-bottom: 10px;
+        }
+
+        /* Sekme (Tab) Tasarımları */
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            background-color: #222;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .tab-btn:hover { background-color: #004400; }
+        .tab-btn.active { background-color: #00ff00; color: #000; }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Giriş Kutuları ve Butonlar */
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #000;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        button.action-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #000;
+            color: #00ff00;
+            border: 2px solid #00ff00;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        button.action-btn:hover {
+            background-color: #00ff00;
+            color: #000;
+        }
+
+        /* Sonuç Gösterme Alanı */
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #444;
+            background-color: #050505;
+            word-wrap: break-word;
+        }
+
+        .success { color: #00ff00; }
+        .warning { color: #ffcc00; }
+        .danger { color: #ff0000; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Siber Güvenlik Şifre Kontrol Paneli</h1>
+
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(event, 'analiz')">Parola Analizi</button>
+        <button class="tab-btn" onclick="switchTab(event, 'uretici')">Parola Üretici</button>
+    </div>
+
+    <div id="analiz" class="tab-content active">
+        <h3>[+] Parola Güvenlik Analizi</h3>
+        <p>Lütfen analiz edilecek parolayı girin:</p>
+        <input type="text" id="parolaInput" placeholder="Parolanızı buraya yazın...">
+        <button class="action-btn" onclick="analizEt()">Analizi Başlat</button>
+        <div id="analizSonuc" class="result-box">Sonuçlar burada gösterilecek...</div>
+    </div>
+
+    <div id="uretici" class="tab-content">
+        <h3>[+] Kırılmaz Parola Üretici</h3>
+        <p>Kaç karakterlik bir parola oluşturulsun? (Önerilen: 12+)</p>
+        <input type="number" id="uzunlukInput" value="12" min="8" max="50">
+        <button class="action-btn" onclick="parolaUret()">Parola Üret</button>
+        <div id="ureticiSonuc" class="result-box">Yeni parolanız burada gösterilecek...</div>
+    </div>
+</div>
+<script>
+function switchTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function analizEt() {
+        let parola = document.getElementById("parolaInput").value;
+        let sonucAlani = document.getElementById("analizSonuc");
+        
+        if (!parola) {
+            sonucAlani.innerHTML = "<span class='warning'>[!] Lütfen önce bir parola girin.</span>";
+            return;
+        }
+
+        let uzunluk = parola.length;
+        let puan = 0;
+        
+        let hasLower = /[a-z]/.test(parola);
+        let hasUpper = /[A-Z]/.test(parola);
+        let hasNumber = /[0-9]/.test(parola);
+        let hasSpecial = /[!@#.$%^&*()\-_=+]/.test(parola);
+
+        if (uzunluk >= 8) puan += 1;
+        if (hasLower) puan += 1;
+        if (hasUpper) puan += 1;
+        if (hasNumber) puan += 1;
+        if (hasSpecial) puan += 1;
+
+        let mesaj = `<strong>Güvenlik Puanı: ${puan}/5</strong><br><br>`;
+        
+        if (uzunluk < 8) {
+            mesaj += "<span class='danger'>Durum: ZAYIF - Parolanız çok kısa! En az 8 karakter olmalıdır.</span><br>";
+        } else {
+            mesaj += "<span class='success'>Durum: BAŞARILI - Uzunluk kriteri sağlandı.</span><br>";
+        }
+
+        if (puan === 5) {
+            mesaj += "<span class='success'>Durum: GÜÇLÜ - Brute Force ile şifreniz yaklaşık 1 milyar yılda bulunacaktır ;)</span>";
+        } else if (puan >= 3) {
+            mesaj += "<span class='warning'>Durum: ORTA - Fena değil ama daha güçlü bi zırhın neden olmasın ki ?</span>";
+        } else {
+            mesaj += "<span class='danger'>Sistem Yorumu: ZAYIF - Hedef tahtası gibisin, siber dünyada böyle dolaşmamalısın!</span>";
+        }
+
+        sonucAlani.innerHTML = mesaj;
+    }
+
+    // Kriptografik Olarak Güvenli Parola Üretme Fonksiyonu
+    function parolaUret() {
+        let uzunluk = parseInt(document.getElementById("uzunlukInput").value);
+        let sonucAlani = document.getElementById("ureticiSonuc");
+        
+        if (isNaN(uzunluk) || uzunluk < 4) {
+            sonucAlani.innerHTML = "<span class='danger'>[!] Lütfen en az 4 karakterlik bir uzunluk belirleyin.</span>";
+            return;
+        }
+
+        const kucukHarfler = "abcdefghijklmnopqrstuvwxyz";
+        const buyukHarfler = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const rakamlar = "0123456789";
+        const ozel = "!@#$%^&*()-_=+";
+        const tumKarakterler = kucukHarfler + buyukHarfler + rakamlar + ozel;
+        
+        // Kriptografik rastgele sayı üreten yardımcı fonksiyon
+        function guvenliRastgeleIndex(max) {
+            const array = new Uint32Array(1);
+            window.crypto.getRandomValues(array);
+            return array[0] % max;
+        }
+
+        let parolaDizisi = [];
+
+        // Her kategoriden KESİNLİKLE en az 1 karakter ekliyoruz
+        parolaDizisi.push(kucukHarfler[guvenliRastgeleIndex(kucukHarfler.length)]);
+        parolaDizisi.push(buyukHarfler[guvenliRastgeleIndex(buyukHarfler.length)]);
+        parolaDizisi.push(rakamlar[guvenliRastgeleIndex(rakamlar.length)]);
+        parolaDizisi.push(ozel[guvenliRastgeleIndex(ozel.length)]);
+
+        // Geri kalan uzunluğu tüm karakterler havuzundan rastgele dolduruyoruz
+        for (let i = 4; i < uzunluk; i++) {
+            parolaDizisi.push(tumKarakterler[guvenliRastgeleIndex(tumKarakterler.length)]);
+        }
+
+        // Fisher-Yates Algoritması ile diziyi karıştırıyoruz ki ilk 4 karakterin sırası tahmin edilmesin
+        for (let i = parolaDizisi.length - 1; i > 0; i--) {
+            const j = guvenliRastgeleIndex(i + 1);
+            [parolaDizisi[i], parolaDizisi[j]] = [parolaDizisi[j], parolaDizisi[i]];
+        }
+
+        let yeniParola = parolaDizisi.join("");
+
+        // Sonucu ekrana basıyoruz. Şifredeki < veya > işaretlerinin HTML'i bozmaması için textContent kullanıyoruz.
+        sonucAlani.innerHTML = `<span class='success'>[+] Kırılmaz Parolanız Üretildi:</span><br><br><strong style='font-size: 1.2em;' id='guvenliParolaMetni'></strong>`;
+        document.getElementById('guvenliParolaMetni').textContent = yeniParola;
+    }
+</script>
+</body>
+</html>

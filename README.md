@@ -2,7 +2,7 @@
 ## 🇹🇷 Türkçe
 
 ### 💻 Web Projesi Hakkında
-**CipherForge Web**, siber güvenlik parola aracımızın tamamen tarayıcı üzerinde çalışan ön yüz (frontend) versiyonudur. Hiçbir kuruluma, Python'a veya arka plan sunucusuna ihtiyaç duymadan, kırılamaz şifreler üretmenizi ve analiz yapmanızı sağlar.
+**Zero day pass Web**, siber güvenlik parola aracımızın tamamen tarayıcı üzerinde çalışan ön yüz (frontend) versiyonudur. Hiçbir kuruluma, Python'a veya arka plan sunucusuna ihtiyaç duymadan, kırılamaz şifreler üretmenizi ve analiz yapmanızı sağlar.
 
 ### 🚀 Özellikler ve Teknolojiler
 * **%100 Tarayıcı Tabanlı:** Sadece HTML, CSS ve JavaScript (Vanilla JS) kullanılarak kodlanmıştır. Verileriniz hiçbir sunucuya gönderilmez, cihazınızda kalır.
@@ -17,7 +17,7 @@ Aracı hiçbir şey indirmeden hemen kullanmaya başlamak için:
 ## 🇬🇧 English
 
 ### 💻 About The Web Project
-**CipherForge Web** is the frontend-only version of our cybersecurity password tool. Designed with a dark, it allows users to analyze password strength and generate unbreakable passwords directly in their browser—no installation, Python, or backend server required.
+**Zero day pass Web** is the frontend-only version of our cybersecurity password tool. Designed with a dark, it allows users to analyze password strength and generate unbreakable passwords directly in their browser—no installation, Python, or backend server required.
 
 ### 🚀 Features & Tech Stack
 * **100% Client-Side:** Built purely with HTML, CSS, and Vanilla JavaScript. All operations run safely within your local browser.
